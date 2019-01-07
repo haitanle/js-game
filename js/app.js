@@ -1,14 +1,28 @@
 /*
  * Create a list that holds all of your cards
  */
-
-test 
+var playersList = ["kdb","ronaldo","messi","pogba","hazard","modric","neymar","salah","kdb","ronaldo","messi","pogba","hazard","modric","neymar","salah"];
 /*
  * Display the cards on the page
  *   - shuffle the list of cards using the provided "shuffle" method below
  *   - loop through each card and create its HTML
  *   - add each card's HTML to the page
  */
+
+//TODO: duplicate player list 
+
+var playersListRandom = shuffle(playersList);
+
+var deck = document.querySelector('.deck');
+
+
+playersListRandom.forEach(function(player){
+	deck.innerHTML += `<li class="card">
+                <i class="fa ${player}"></i>
+            </li>`;
+});
+
+
 
 // Shuffle function from http://stackoverflow.com/a/2450976
 function shuffle(array) {
