@@ -15,13 +15,28 @@ var playersListRandom = shuffle(playersList);
 
 var deck = document.querySelector('.deck');
 
-
+//shuffle cards
 playersListRandom.forEach(function(player){
 	deck.innerHTML += `<li class="card">
-                <i class="fa ${player}"></i>
+                <i class="tile ${player}"></i>
             </li>`;
 });
 
+
+
+var className;
+
+//on click show the card and get the card name for matching 
+document.querySelector('.deck').addEventListener('click', function(event){
+		console.log(event.target);
+		event.target.classList.add('show','open');
+		className =  '.'+ event.target.children.item(0).classList[1];
+
+		//check if First name matches with second selection
+			//check if it is first selection
+		console.log(className);
+
+});
 
 
 // Shuffle function from http://stackoverflow.com/a/2450976
