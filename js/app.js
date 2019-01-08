@@ -28,13 +28,14 @@ var className;
 
 //on click show the card and get the card name for matching 
 document.querySelector('.deck').addEventListener('click', function(event){
-		console.log(event.target);
-		event.target.classList.add('show','open');
-		className =  '.'+ event.target.children.item(0).classList[1];
+		//console.log(event.target);
+		// event.target.classList.add('show');
+		// className =  '.'+ event.target.children.item(0).classList[1];
+		event.target.children.item(0).classList.add('show');
 
 		//check if First name matches with second selection
 			//check if it is first selection
-		console.log(className);
+		// console.log(className);
 
 });
 

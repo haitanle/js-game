@@ -71,8 +71,8 @@ h1 {
     cursor: default;
 }
 
-.deck .card.show {
-    font-size: 33px;
+.show {
+    width: 100%;
 }
 
 .deck .card.match {
@@ -113,8 +113,37 @@ h1 {
     background: url('../img/kdb.jpg');
 }
 
+.ronaldo {
+    background: url('../img/ronaldo.jpg');
+}
+
+.messi {
+    background: url('../img/messi.jpg');
+}
+
+.pogba {
+    background: url('../img/pogba.jpg');
+}
+
+.neymar {
+    background: url('../img/neymar.jpg');
+}
+
+.modric {
+    background: url('../img/modric.jpg');
+}
+
+.salah {
+    background: url('../img/salah.jpg');
+}
+
+.hazard {
+    background: url('../img/hazard.jpg');
+}
+
+
 .tile {
-    /*width: 100%;*/
+/*    width: 100%;*/
     height: 100%;
     background-size: cover;
     background-position: center;
