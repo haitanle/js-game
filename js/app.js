@@ -26,6 +26,9 @@ playersListRandom.forEach(function(player){
 
 var className;
 
+var firstSelect; 
+var secondSelect; 
+
 //on click show the card and get the card name for matching 
 document.querySelector('.deck').addEventListener('click', function(event){
 		//console.log(event.target);
@@ -33,11 +36,76 @@ document.querySelector('.deck').addEventListener('click', function(event){
 		// className =  '.'+ event.target.children.item(0).classList[1];
 		event.target.children.item(0).classList.add('show');
 
+
+		//get card clicked
+		if (firstSelect == null ){
+			console.log(firstSelect)
+			firstSelect = event.target.children.item(0).classList[1];
+			console.log(firstSelect)
+		}else{
+			console.log(secondSelect)
+			secondSelect = event.target.children.item(0).classList[1];
+			console.log(secondSelect)
+		}
+		
 		//check if First name matches with second selection
 			//check if it is first selection
 		// console.log(className);
 
+		console.log('first select is '+firstSelect);
+		console.log('second select is '+secondSelect);
+
+		if (firstSelect === secondSelect && firstSelect != null){
+			console.log('card matched');
+
+					//card match, remove card from playerList
+			        for(var i = playersList.length-1; i--;){
+						if (playersList[i] === firstSelect) playersList.splice(i, 1);
+					}
+
+					firstSelect = null;
+					secondSelect = null;
+
+		}else if (firstSelect != secondSelect && secondSelect != null) {
+			console.log('card do not match');
+
+			//document.querySelector('.'+firstSelect).classList.remove('show');
+
+				//card do not match, unflip the card
+				var divs = document.querySelectorAll('.'+firstSelect), i;
+
+				for (i = 0; i < divs.length; ++i) {
+
+					divs[i].classList.remove('show');
+				  //divs[i].style.color = "green";
+				}
+
+			//document.querySelector('.'+secondSelect).classList.remove('show');
+
+			var second = document.querySelectorAll('.'+secondSelect), n;
+
+				for (n = 0; n < second.length; ++n) {
+
+					second[n].classList.remove('show');
+				  //second[i].style.color = "green";
+				}
+
+
+
+		}
+
+
+		if (secondSelect != null){
+			firstSelect = null;
+			secondSelect = null;
+		}
+
+		console.log(playersList);
+
 });
+
+
+
 
 
 // Shuffle function from http://stackoverflow.com/a/2450976
