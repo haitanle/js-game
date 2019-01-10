@@ -26,15 +26,17 @@ playersListRandom.forEach(function(player){
 
 var className;
 
-var firstSelect; 
-var secondSelect; 
+var firstSelect;
+var secondSelect;
 
 //on click show the card and get the card name for matching 
 document.querySelector('.deck').addEventListener('click', function(event){
 		//console.log(event.target);
 		// event.target.classList.add('show');
 		// className =  '.'+ event.target.children.item(0).classList[1];
+		console.log('what to show: ' + event.target.children.item(0).classList);
 		event.target.children.item(0).classList.add('show');
+
 
 
 		//get card clicked
@@ -68,28 +70,35 @@ document.querySelector('.deck').addEventListener('click', function(event){
 
 		}else if (firstSelect != secondSelect && secondSelect != null) {
 			console.log('card do not match');
+			
 
 			//document.querySelector('.'+firstSelect).classList.remove('show');
 
 				//card do not match, unflip the card
 				var divs = document.querySelectorAll('.'+firstSelect), i;
+				var second = document.querySelectorAll('.'+secondSelect), n;
+
+
+				//set timeout function to flip and turn over card if they do not match
+				setTimeout(function(){
 
 				for (i = 0; i < divs.length; ++i) {
 
-					divs[i].classList.remove('show');
-				  //divs[i].style.color = "green";
+						if (divs[i].classList.contains('show')){
+							divs[i].classList.remove('show');
+						}
 				}
 
-			//document.querySelector('.'+secondSelect).classList.remove('show');
-
-			var second = document.querySelectorAll('.'+secondSelect), n;
 
 				for (n = 0; n < second.length; ++n) {
 
-					second[n].classList.remove('show');
-				  //second[i].style.color = "green";
+						if (second[n].classList.contains('show')){
+							second[n].classList.remove('show');
+							event.stopPropagation();
+						}
 				}
 
+				 }, 3000);
 
 
 		}
@@ -122,6 +131,7 @@ function shuffle(array) {
 
     return array;
 }
+
 
 
 /*
