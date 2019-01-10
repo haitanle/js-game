@@ -3,26 +3,17 @@
  */
 let playersList = ["kdb","ronaldo","messi","pogba","hazard","modric","neymar","salah","kdb","ronaldo","messi","pogba","hazard","modric","neymar","salah"];
 
-
-
-let counter;
-const counterDisplay = document.querySelector('.moves');
-
-
-setupGame();
-
 //TODO: duplicate player list 
 
 
 
-
-/* Function setupGame
+/* 
+ * setupGame function
  * Display the cards on the page
  *   - shuffle the list of cards using the provided "shuffle" method below
  *   - loop through each card and create its HTML
  *   - add each card's HTML to the page
  */
-
 function setupGame(){
 	counter = 0; 
 	counterDisplay.textContent = counter;
@@ -37,108 +28,102 @@ function setupGame(){
 	});
 }
 
+/*
+* showCard function
+* 	-flip and animate the card on the screen
+*/
+function showCard(card){
+	card.classList.add('show');
+}
 
+
+/*
+* removeCardFromList function
+* Remove card from list
+	-remove all cardName from the list
+*
+*/ 
+function removeCardFromList(cardName){
+
+	for(var i = playersList.length-1; i--;){
+		if (playersList[i] === cardName) playersList.splice(i, 1);
+	}
+}
+
+/*
+* unflipCard function
+* unflip 2 cards when they do not match
+* 	-flip takes 3000ms to take place
+*/
+function unflipCard(firstCard, secondCard){
+
+var firstCardNode = document.querySelectorAll('.'+ firstCard), i;
+var secondCardNode = document.querySelectorAll('.'+ secondCard), n;
+
+	setTimeout(function(){
+		for (i = 0; i < firstCardNode.length; ++i) {
+				if (firstCardNode[i].classList.contains('show')){
+					firstCardNode[i].classList.remove('show');
+				}
+		}
+		for (n = 0; n < secondCardNode.length; ++n) {
+				if (secondCardNode[n].classList.contains('show')){
+					secondCardNode[n].classList.remove('show');
+					event.stopPropagation();
+				}
+		}
+	 }, 3000);
+}
+
+/*
+* incrementCounter Function
+* 	increment count of click by 1 
+*/
+function incrementCounter(){
+	counterDisplay.textContent++;
+}
+
+let counter;
+const counterDisplay = document.querySelector('.moves');
 
 let openCards = [];
 
+setupGame();
 
 
-var className;
-
-var firstSelect;
-var secondSelect;
-
-//on click show the card and get the card name for matching 
 document.querySelector('.deck').addEventListener('click', function(event){
-		//console.log(event.target);
-		// event.target.classList.add('show');
-		// className =  '.'+ event.target.children.item(0).classList[1];
+
 		console.log('what to show: ' + event.target.children.item(0).classList);
 
-
-		//function to display the card
 		let cardNode = event.target.children.item(0);
-		event.target.children.item(0).classList.add('show');
+
+		showCard(cardNode);
+
+		cardName = cardNode.classList[1];  //shouldn't use index/not accurate
 
 
+		//function determine matching
+		if (openCards.length === 0 ){
+			openCards.push(cardName);
+		} else {
 
-		//get card clicked
-		if (firstSelect == null ){
-			console.log(firstSelect)
-			firstSelect = event.target.children.item(0).classList[1];
-			console.log(firstSelect)
-		}else{
-			console.log(secondSelect)
-			secondSelect = event.target.children.item(0).classList[1];
-			console.log(secondSelect)
-		}
-		
-		//check if First name matches with second selection
-			//check if it is first selection
-		// console.log(className);
+			let cardFromList = openCards.pop();
 
-		console.log('first select is '+firstSelect);
-		console.log('second select is '+secondSelect);
+			if (cardFromList=== cardName){
+				console.log('Card Matched');
 
-		if (firstSelect === secondSelect && firstSelect != null){
-			console.log('card matched');
+				removeCardFromList(cardName);
+			}else{
 
-					//card match, remove card from playerList
-			        for(var i = playersList.length-1; i--;){
-						if (playersList[i] === firstSelect) playersList.splice(i, 1);
-					}
+				console.log('Card do not matched');
 
-
-
-					firstSelect = null;
-					secondSelect = null;
-
-		}else if (firstSelect != secondSelect && secondSelect != null) {
-			console.log('card do not match');
-			
-
-			//document.querySelector('.'+firstSelect).classList.remove('show');
-
-				//card do not match, unflip the card
-				var divs = document.querySelectorAll('.'+firstSelect), i;
-				var second = document.querySelectorAll('.'+secondSelect), n;
-
-
-				//set timeout function to flip and turn over card if they do not match
-				setTimeout(function(){
-
-				for (i = 0; i < divs.length; ++i) {
-
-						if (divs[i].classList.contains('show')){
-							divs[i].classList.remove('show');
-						}
-				}
-
-
-				for (n = 0; n < second.length; ++n) {
-
-						if (second[n].classList.contains('show')){
-							second[n].classList.remove('show');
-							event.stopPropagation();
-						}
-				}
-
-				 }, 3000);
-
-
-		}
-
-
-		if (secondSelect != null){
-			firstSelect = null;
-			secondSelect = null;
-		}
+				unflipCard(cardFromList, cardName);
+			}
+		}	
 
 		console.log(playersList);
 
-		counter +=1; 
-		counterDisplay.textContent = counter;
-
+		incrementCounter();
 });
 
 
