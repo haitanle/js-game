@@ -1,26 +1,45 @@
 /*
  * Create a list that holds all of your cards
  */
-var playersList = ["kdb","ronaldo","messi","pogba","hazard","modric","neymar","salah","kdb","ronaldo","messi","pogba","hazard","modric","neymar","salah"];
-/*
+let playersList = ["kdb","ronaldo","messi","pogba","hazard","modric","neymar","salah","kdb","ronaldo","messi","pogba","hazard","modric","neymar","salah"];
+
+
+
+let counter;
+const counterDisplay = document.querySelector('.moves');
+
+
+setupGame();
+
+//TODO: duplicate player list 
+
+
+
+
+/* Function setupGame
  * Display the cards on the page
  *   - shuffle the list of cards using the provided "shuffle" method below
  *   - loop through each card and create its HTML
  *   - add each card's HTML to the page
  */
 
-//TODO: duplicate player list 
+function setupGame(){
+	counter = 0; 
+	counterDisplay.textContent = counter;
 
-var playersListRandom = shuffle(playersList);
+	const listRandom = shuffle(playersList);
+	const deck = document.querySelector('.deck');
 
-var deck = document.querySelector('.deck');
-
-//shuffle cards
-playersListRandom.forEach(function(player){
-	deck.innerHTML += `<li class="card">
+	listRandom.forEach(function(player){
+		deck.innerHTML += `<li class="card">
                 <i class="tile ${player}"></i>
-            </li>`;
-});
+           		</li>`;
+	});
+}
+
+
+
+let openCards = [];
 
 
 
@@ -35,6 +54,10 @@ document.querySelector('.deck').addEventListener('click', function(event){
 		// event.target.classList.add('show');
 		// className =  '.'+ event.target.children.item(0).classList[1];
 		console.log('what to show: ' + event.target.children.item(0).classList);
+
+
+		//function to display the card
+		let cardNode = event.target.children.item(0);
 		event.target.children.item(0).classList.add('show');
 
 
@@ -64,6 +87,8 @@ document.querySelector('.deck').addEventListener('click', function(event){
 			        for(var i = playersList.length-1; i--;){
 						if (playersList[i] === firstSelect) playersList.splice(i, 1);
 					}
+
+
 
 					firstSelect = null;
 					secondSelect = null;
@@ -110,6 +135,9 @@ document.querySelector('.deck').addEventListener('click', function(event){
 		}
 
 		console.log(playersList);
+
+		counter +=1; 
+		counterDisplay.textContent = counter;
 
 });
 
