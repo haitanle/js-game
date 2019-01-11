@@ -1,9 +1,23 @@
 
-let playersList = ["kdb","ronaldo","messi","pogba","hazard","modric","neymar","salah","kdb","ronaldo","messi","pogba","hazard","modric","neymar","salah"];
+let playersList = ["kdb","ronaldo","messi","pogba","hazard","modric","neymar","salah"];
 
 
 
-//TODO: duplicate player list 
+
+/*
+* duplicateList function
+*  return a list of duplicates for each element
+*/
+function duplicateList(list){
+	temp=[];
+
+	for(var i = 0; i< list.length;++i){
+	  temp.push(list[i]);
+	  temp.push(list[i]);
+	}
+	list=temp;
+	return list; 
+}
 
 
 /* 
@@ -17,7 +31,7 @@ function setupGame(){
 	counter = 0; 
 	counterDisplay.textContent = counter;
 
-	const listRandom = shuffle(playersList);
+	const listRandom = shuffle(duplicateList(playersList));
 	const deck = document.querySelector('.deck');
 
 	listRandom.forEach(function(player){
@@ -44,7 +58,7 @@ function showCard(card){
 */ 
 function removeCardFromList(cardName){
 
-	for(var i = playersList.length-1; i--;){
+	for(var i = 0; i < playersList.length; i++){
 		if (playersList[i] === cardName) playersList.splice(i, 1);
 	}
 }
@@ -80,6 +94,10 @@ var secondCardNode = document.querySelectorAll('.'+ secondCard), n;
 function incrementCounter(){
 	counterDisplay.textContent++;
 }
+
+
+
+
 
 let counter;
 const counterDisplay = document.querySelector('.moves');
@@ -123,21 +141,30 @@ document.querySelector('.deck').addEventListener('click', function(event){
 
 		incrementCounter();
 
-		//gameFinishedCheck function
-		gameFinishedCheck();
+		//gameFinished function
+		console.log('length '+ playersList.length);
+		if (playersList.length === 0){
+			gameFinished(counter);
+		}
 });
 
 
 /*
-* gameFinishedCheck function
+* gameFinished function
 * check if the game is finished 
 * 	-display modal of completion
 */
-function gameFinishedCheck(){
-			if (playersList.length === 0){
-				console.log('Game Finished!!')
-			}
-		}
+function gameFinished(counter){
+
+				console.log('Game Finished!!');
+
+				document.querySelector('.container').style.display = 'none';
+				document.querySelector('.finished').style.display = 'flex';
+
+				const result = document.createElement('span');
+				result.textContent = 'With '+counter+ ' moves';
+				document.querySelector('.finished').appendChild(result);
+}
 
 
 
