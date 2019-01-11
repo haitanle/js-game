@@ -1,10 +1,9 @@
-/*
- * Create a list that holds all of your cards
- */
+
 let playersList = ["kdb","ronaldo","messi","pogba","hazard","modric","neymar","salah","kdb","ronaldo","messi","pogba","hazard","modric","neymar","salah"];
 
-//TODO: duplicate player list 
 
+
+//TODO: duplicate player list 
 
 
 /* 
@@ -69,10 +68,9 @@ var secondCardNode = document.querySelectorAll('.'+ secondCard), n;
 		for (n = 0; n < secondCardNode.length; ++n) {
 				if (secondCardNode[n].classList.contains('show')){
 					secondCardNode[n].classList.remove('show');
-					event.stopPropagation();
 				}
 		}
-	 }, 3000);
+	 }, 2000);
 }
 
 /*
@@ -124,8 +122,22 @@ document.querySelector('.deck').addEventListener('click', function(event){
 		console.log(playersList);
 
 		incrementCounter();
+
+		//gameFinishedCheck function
+		gameFinishedCheck();
 });
 
+
+/*
+* gameFinishedCheck function
+* check if the game is finished 
+* 	-display modal of completion
+*/
+function gameFinishedCheck(){
+			if (playersList.length === 0){
+				console.log('Game Finished!!')
+			}
+		}
 
 
 
