@@ -74,7 +74,7 @@ h1 {
 .show {
     width: 100%;
     animation: shake 0.5s; 
-
+    cursor: none;
   /* When the animation is finished, start again */
     animation-iteration-count: 2s;
 }

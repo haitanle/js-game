@@ -28,6 +28,7 @@ function performDuplicate(list){
  */
 function setupGame(){
 	counter = 0;
+	starsCount = 3;
 	counterDisplay.textContent = counter;
 
 	const duplicateList = performDuplicate(playersList);
@@ -85,8 +86,10 @@ var secondCardNode = document.querySelectorAll('.'+ secondCard), n;
 					secondCardNode[n].classList.remove('show');
 				}
 		}
-	 }, 2000);
+	 }, 1000);
+
 }
+
 
 /*
 * incrementCounter Function
@@ -102,6 +105,7 @@ function incrementCounter(){
 
 
 let counter;
+let starsCount;
 const counterDisplay = document.querySelector('.moves');
 
 let openCards = [];
@@ -126,33 +130,49 @@ document.querySelector('.deck').addEventListener('click', function(event){
 		} else {
 
 			let cardFromList = openCards.pop();
-
 			if (cardFromList=== cardName){
 				console.log('Card Matched');
-
 				removeCardFromList(cardName);
 			}else{
 
 				console.log('Card do not matched');
-
 				unflipCard(cardFromList, cardName);
 			}
+			incrementCounter();
+			calculateStarRating();
+
 		}	
-
 		console.log(duplicateList);
-
-		incrementCounter();
 
 	console.log('length '+duplicateList.length);
 	if (duplicateList.length === 0){
 		gameFinished(counter);
 	}
+
 });
 
 
 document.querySelector('.restart').addEventListener('click', function(event){
 	setupGame();
 });
+
+
+
+
+/*
+* calculateStarRating function
+*	determinie and display star rating based on counter 
+*/
+function calculateStarRating(){
+	const stars = document.querySelector('.stars');
+	if (counter === 11 || counter === 16){
+		stars.removeChild(stars.firstElementChild);
+		stars.insertAdjacentHTML('beforeend','<li><i class="fa fa-star-o"></i></li>');
+		starsCount--;
+	}
+}
+
+
 
 /*
 * gameFinished function
@@ -167,7 +187,7 @@ function gameFinished(counter){
 				document.querySelector('.finished').style.display = 'flex';
 
 				const result = document.createElement('span');
-				result.textContent = 'With '+ counter+ ' moves';
+				result.textContent = 'With '+ counter + ' moves and '+ starsCount + ' stars';
 				document.querySelector('.finished').appendChild(result);
 }
 
