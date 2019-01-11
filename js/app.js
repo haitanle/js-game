@@ -2,6 +2,8 @@
 let playersList = ["kdb","ronaldo","messi","pogba","hazard","modric","neymar","salah"];
 
 let duplicateList = performDuplicate(playersList);
+
+
 /*
 * performDuplicate function
 *  return a list of duplicates for each element
@@ -28,7 +30,8 @@ function setupGame(){
 	counter = 0;
 	counterDisplay.textContent = counter;
 
-	const listRandom = shuffle(performDuplicate(playersList));
+	const duplicateList = performDuplicate(playersList);
+	const listRandom = shuffle(duplicateList);
 	const deck = document.querySelector('.deck');
 
 	deck.innerHTML = '';
@@ -147,6 +150,10 @@ document.querySelector('.deck').addEventListener('click', function(event){
 });
 
 
+document.querySelector('.restart').addEventListener('click', function(event){
+	setupGame();
+});
+
 /*
 * gameFinished function
 * check if the game is finished 
@@ -163,9 +170,6 @@ function gameFinished(counter){
 				result.textContent = 'With '+ counter+ ' moves';
 				document.querySelector('.finished').appendChild(result);
 }
-
-
-
 
 // Shuffle function from http://stackoverflow.com/a/2450976
 function shuffle(array) {
