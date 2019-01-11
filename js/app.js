@@ -1,22 +1,19 @@
 
 let playersList = ["kdb","ronaldo","messi","pogba","hazard","modric","neymar","salah"];
 
-
-
-
+let duplicateList = performDuplicate(playersList);
 /*
-* duplicateList function
+* performDuplicate function
 *  return a list of duplicates for each element
 */
-function duplicateList(list){
-	temp=[];
+function performDuplicate(list){
+	const duplicateList=[];
 
 	for(var i = 0; i< list.length;++i){
-	  temp.push(list[i]);
-	  temp.push(list[i]);
+	  duplicateList.push(list[i]);
+	  duplicateList.push(list[i]);
 	}
-	list=temp;
-	return list; 
+	return duplicateList; 
 }
 
 
@@ -28,12 +25,13 @@ function duplicateList(list){
  *   - add each card's HTML to the page
  */
 function setupGame(){
-	counter = 0; 
+	counter = 0;
 	counterDisplay.textContent = counter;
 
-	const listRandom = shuffle(duplicateList(playersList));
+	const listRandom = shuffle(performDuplicate(playersList));
 	const deck = document.querySelector('.deck');
 
+	deck.innerHTML = '';
 	listRandom.forEach(function(player){
 		deck.innerHTML += `<li class="card">
                 <i class="tile ${player}"></i>
@@ -58,8 +56,8 @@ function showCard(card){
 */ 
 function removeCardFromList(cardName){
 
-	for(var i = 0; i < playersList.length; i++){
-		if (playersList[i] === cardName) playersList.splice(i, 1);
+	for(var i = 0; i < duplicateList.length; i++){
+		if (duplicateList[i] == cardName){ duplicateList.splice(i, 2);}
 	}
 }
 
@@ -92,7 +90,8 @@ var secondCardNode = document.querySelectorAll('.'+ secondCard), n;
 * 	increment count of click by 1 
 */
 function incrementCounter(){
-	counterDisplay.textContent++;
+	counter++;
+	counterDisplay.textContent = counter;
 }
 
 
@@ -137,15 +136,14 @@ document.querySelector('.deck').addEventListener('click', function(event){
 			}
 		}	
 
-		console.log(playersList);
+		console.log(duplicateList);
 
 		incrementCounter();
 
-		//gameFinished function
-		console.log('length '+ playersList.length);
-		if (playersList.length === 0){
-			gameFinished(counter);
-		}
+	console.log('length '+duplicateList.length);
+	if (duplicateList.length === 0){
+		gameFinished(counter);
+	}
 });
 
 
@@ -162,7 +160,7 @@ function gameFinished(counter){
 				document.querySelector('.finished').style.display = 'flex';
 
 				const result = document.createElement('span');
-				result.textContent = 'With '+counter+ ' moves';
+				result.textContent = 'With '+ counter+ ' moves';
 				document.querySelector('.finished').appendChild(result);
 }
 
