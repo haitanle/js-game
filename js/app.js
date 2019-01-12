@@ -11,10 +11,10 @@ let duplicateList = performDuplicate(playersList);
 function startTimer(){
 	if (secondsElapsed === 0 ){
 		secondsElapsed++;
-		timerDisplay = setInterval(function(){
+		timer = setInterval(function(){
 			document.querySelector('.timer').innerText = secondsElapsed++;
-			if (secondsElapsed > 300){
-				clearInterval(timerDisplay);
+			if (secondsElapsed > 120){
+				clearInterval(timer);
 			}
 		},1000);
 	}
@@ -25,7 +25,7 @@ function startTimer(){
 *  reset timer and display
 */ 
 function resetTimer(){
-	clearInterval(timerDisplay);
+	clearInterval(timer);
 	document.querySelector('.timer').innerText = secondsElapsed;
 }
 
@@ -138,7 +138,7 @@ function incrementCounter(){
 let counter;
 let starsCount;
 let secondsElapsed = 0;
-let timerDisplay; 
+let timer; 
 
 const counterDisplay = document.querySelector('.moves');
 
@@ -228,7 +228,7 @@ function calculateStarRating(){
 function gameFinished(counter){
 
 				console.log('Game Finished!!');
-				clearInterval(timerDisplay);
+				clearInterval(timer);
 
 				document.querySelector('.container').style.display = 'none';
 				document.querySelector('.finished').style.display = 'flex';
