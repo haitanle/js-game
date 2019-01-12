@@ -35,7 +35,9 @@ function setupGame(){
 	const listRandom = shuffle(duplicateList);
 	const deck = document.querySelector('.deck');
 
+	resetStars();
 	deck.innerHTML = '';
+	openCards = [];
 	listRandom.forEach(function(player){
 		deck.innerHTML += `<li class="card">
                 <i class="tile ${player}"></i>
@@ -155,6 +157,17 @@ document.querySelector('.deck').addEventListener('click', function(event){
 document.querySelector('.restart').addEventListener('click', function(event){
 	setupGame();
 });
+
+
+
+/*
+* resetStars function
+*  reset to 3 stars for new game
+*/
+function resetStars(){
+	const stars = document.querySelector('.stars');
+	stars.innerHTML = '<li><i class="fa fa-star"></i></li><li><i class="fa fa-star"></i></li><li><i class="fa fa-star"></i></li>';
+}
 
 
 
