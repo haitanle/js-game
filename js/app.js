@@ -3,16 +3,19 @@ let playersList = ["kdb","ronaldo","messi","pogba","hazard","modric","neymar","s
 
 let duplicateList = performDuplicate(playersList);
 
-
 /*
 *startTimer function
 * start the timer at first click
-*/
+*  -stop timer if more than 5 minutes passed
+*/ 
 function startTimer(){
 	if (secondsElapsed === 0 ){
 		secondsElapsed++;
 		timerDisplay = setInterval(function(){
 			document.querySelector('.timer').innerText = secondsElapsed++;
+			if (secondsElapsed > 300){
+				clearInterval(timerDisplay);
+			}
 		},1000);
 	}
 }
@@ -233,7 +236,9 @@ function gameFinished(counter){
 				const result = document.createElement('span');
 
 				result.textContent = 'With '+ counter + ' moves and '+ starsCount + ' stars' 
-					+ ' with '+ secondsElapsed +' seconds elapsed.';
+					+ ' and '+ secondsElapsed +' seconds elapsed.';
+
+				result.textContent = `With ${counter} moves and ${starsCount} stars and ${secondsElapsed} seconds elapsed.`;
 
 				document.querySelector('.finished').appendChild(result);
 }
