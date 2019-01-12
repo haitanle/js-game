@@ -5,6 +5,28 @@ let duplicateList = performDuplicate(playersList);
 
 
 /*
+*startTimer function
+* start the timer at first click
+*/
+function startTimer(){
+	if (secondsElapsed === 0 ){
+		secondsElapsed++;
+		timerDisplay = setInterval(function(){
+			document.querySelector('.timer').innerText = secondsElapsed++;
+		},1000);
+	}
+}
+
+/*
+* resetTimer function
+*  reset timer and display
+*/ 
+function resetTimer(){
+	clearInterval(timerDisplay);
+	document.querySelector('.timer').innerText = secondsElapsed;
+}
+
+/*
 * performDuplicate function
 *  return a list of duplicates for each element
 */
@@ -29,6 +51,7 @@ function performDuplicate(list){
 function setupGame(){
 	counter = 0;
 	starsCount = 3;
+	secondsElapsed = 0;
 	counterDisplay.textContent = counter;
 
 	const duplicateList = performDuplicate(playersList);
@@ -36,6 +59,8 @@ function setupGame(){
 	const deck = document.querySelector('.deck');
 
 	resetStars();
+	resetTimer();	
+
 	deck.innerHTML = '';
 	openCards = [];
 	listRandom.forEach(function(player){
@@ -44,6 +69,9 @@ function setupGame(){
            		</li>`;
 	});
 }
+
+
+
 
 /*
 * showCard function
@@ -104,19 +132,21 @@ function incrementCounter(){
 
 
 
-
-
 let counter;
 let starsCount;
+let secondsElapsed = 0;
+let timerDisplay; 
+
 const counterDisplay = document.querySelector('.moves');
 
 let openCards = [];
 
 setupGame();
 
-
 document.querySelector('.deck').addEventListener('click', function(event){
 
+		startTimer();
+		
 		console.log('what to show: ' + event.target.children.item(0).classList);
 
 		let cardNode = event.target.children.item(0);
@@ -195,12 +225,16 @@ function calculateStarRating(){
 function gameFinished(counter){
 
 				console.log('Game Finished!!');
+				clearInterval(timerDisplay);
 
 				document.querySelector('.container').style.display = 'none';
 				document.querySelector('.finished').style.display = 'flex';
 
 				const result = document.createElement('span');
-				result.textContent = 'With '+ counter + ' moves and '+ starsCount + ' stars';
+
+				result.textContent = 'With '+ counter + ' moves and '+ starsCount + ' stars' 
+					+ ' with '+ secondsElapsed +' seconds elapsed.';
+
 				document.querySelector('.finished').appendChild(result);
 }
 
