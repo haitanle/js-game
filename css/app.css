@@ -72,7 +72,7 @@ h1 {
 }
 
 .show {
-    width: 100%;
+    width: 90%;
     animation: shake 0.5s; 
     cursor: none;
   /* When the animation is finished, start again */
@@ -83,6 +83,10 @@ h1 {
     cursor: default;
     background: #02ccba;
     font-size: 33px;
+}
+
+.deck .card.notmatch {
+    background-color: #9886d1;
 }
 
 /*
@@ -148,7 +152,7 @@ h1 {
 
 .tile {
 /*    width: 100%;*/
-    height: 100%;
+    height: 90%;
     background-size: cover;
     background-position: center;
 }
@@ -183,3 +187,5 @@ h1 {
 .timer {
     margin-left: 40px;
 }
+
+

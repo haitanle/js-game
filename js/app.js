@@ -112,15 +112,16 @@ var secondCardNode = document.querySelectorAll('.'+ secondCard), n;
 		for (i = 0; i < firstCardNode.length; ++i) {
 				if (firstCardNode[i].classList.contains('show')){
 					firstCardNode[i].classList.remove('show');
+					firstCardNode[i].parentElement.classList.remove('notmatch');
 				}
 		}
 		for (n = 0; n < secondCardNode.length; ++n) {
 				if (secondCardNode[n].classList.contains('show')){
 					secondCardNode[n].classList.remove('show');
+					secondCardNode[n].parentElement.classList.remove('notmatch');
 				}
 		}
 	 }, 1000);
-
 }
 
 
@@ -152,26 +153,42 @@ document.querySelector('.deck').addEventListener('click', function(event){
 		
 		console.log('what to show: ' + event.target.children.item(0).classList);
 
-		let cardNode = event.target.children.item(0);
+		let cardNode = event.target;
+		//let cardNode = event.target.children.item(0);
 
-		showCard(cardNode);
+		let childNode = cardNode.children.item(0);
+		let cardName = cardNode.children.item(0).classList[1];
 
-		cardName = cardNode.classList[1];  //shouldn't use index/not accurate
+		showCard(childNode);
+
+
+
+		// cardName = cardNode.classList[1];  //shouldn't use index/not accurate
 
 
 		//function determine matching
 		if (openCards.length === 0 ){
-			openCards.push(cardName);
+			openCards.push(cardNode);
 		} else {
 
 			let cardFromList = openCards.pop();
-			if (cardFromList=== cardName){
+			if (cardFromList.children.item(0).classList[1] === cardName){
 				console.log('Card Matched');
+
+				cardNode.classList.add('match');
+				cardFromList.classList.add('match');
+
 				removeCardFromList(cardName);
 			}else{
 
 				console.log('Card do not matched');
-				unflipCard(cardFromList, cardName);
+				cardNode.classList.add('notmatch');
+				cardFromList.classList.add('notmatch');
+
+				unflipCard(cardFromList.children.item(0).classList[1], cardName);
+
+				//cardNode.classList.remove('notmatch');
+				//cardFromList.classList.remove('notmatch');
 			}
 			incrementCounter();
 			calculateStarRating();
