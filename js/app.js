@@ -149,6 +149,8 @@ setupGame();
 
 document.querySelector('.deck').addEventListener('click', function(event){
 
+	if (event.target.classList[0]==='card'){
+
 		startTimer();
 		
 		console.log('what to show: ' + event.target.children.item(0).classList);
@@ -196,9 +198,10 @@ document.querySelector('.deck').addEventListener('click', function(event){
 		}	
 		console.log(duplicateList);
 
-	console.log('length '+duplicateList.length);
-	if (duplicateList.length === 0){
-		gameFinished(counter);
+		console.log('length '+duplicateList.length);
+		if (duplicateList.length === 0){
+			gameFinished(counter);
+		}
 	}
 
 });
