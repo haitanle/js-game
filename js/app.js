@@ -154,13 +154,11 @@ document.querySelector('.deck').addEventListener('click', function(event){
 		console.log('what to show: ' + event.target.children.item(0).classList);
 
 		let cardNode = event.target;
-		//let cardNode = event.target.children.item(0);
 
 		let childNode = cardNode.children.item(0);
 		let cardName = cardNode.children.item(0).classList[1];
 
 		showCard(childNode);
-
 
 
 		// cardName = cardNode.classList[1];  //shouldn't use index/not accurate
@@ -172,7 +170,9 @@ document.querySelector('.deck').addEventListener('click', function(event){
 		} else {
 
 			let cardFromList = openCards.pop();
-			if (cardFromList.children.item(0).classList[1] === cardName){
+			let cardFromListName = cardFromList.children.item(0).classList[1];
+
+			if (cardFromListName === cardName){
 				console.log('Card Matched');
 
 				cardNode.classList.add('match');
@@ -185,7 +185,7 @@ document.querySelector('.deck').addEventListener('click', function(event){
 				cardNode.classList.add('notmatch');
 				cardFromList.classList.add('notmatch');
 
-				unflipCard(cardFromList.children.item(0).classList[1], cardName);
+				unflipCard(cardFromListName, cardName);
 
 				//cardNode.classList.remove('notmatch');
 				//cardFromList.classList.remove('notmatch');
