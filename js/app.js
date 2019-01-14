@@ -1,7 +1,7 @@
 
 let playersList = ["kdb","ronaldo","messi","pogba","hazard","modric","neymar","salah"];
 
-let duplicateList = performDuplicate(playersList);
+let duplicateList; 
 
 /*
 *startTimer function
@@ -52,12 +52,17 @@ function performDuplicate(list){
  *   - add each card's HTML to the page
  */
 function setupGame(){
+
+	document.querySelector('.container').style.display = 'flex';
+	document.querySelector('.finished').style.display = 'none';
+
 	counter = 0;
 	starsCount = 3;
 	secondsElapsed = 0;
 	counterDisplay.textContent = counter;
 
-	const duplicateList = performDuplicate(playersList);
+	duplicateList = performDuplicate(playersList);
+
 	const listRandom = shuffle(duplicateList);
 	const deck = document.querySelector('.deck');
 
@@ -149,7 +154,7 @@ setupGame();
 
 document.querySelector('.deck').addEventListener('click', function(event){
 
-	if (event.target.classList[0]==='card'){
+	if (event.target.classList[0] ==='card'){
 
 		startTimer();
 		
@@ -253,14 +258,15 @@ function gameFinished(counter){
 				document.querySelector('.container').style.display = 'none';
 				document.querySelector('.finished').style.display = 'flex';
 
-				const result = document.createElement('span');
+				const finishedText = document.querySelector('.finished-result');
 
-				result.textContent = 'With '+ counter + ' moves and '+ starsCount + ' stars' 
-					+ ' and '+ secondsElapsed +' seconds elapsed.';
+				finishedText.innerHTL = '';
 
-				result.textContent = `With ${counter} moves and ${starsCount} stars and ${secondsElapsed} seconds elapsed.`;
+				const result = document.createElement('p');
 
-				document.querySelector('.finished').appendChild(result);
+				result.textContent = `With ${counter} moves, ${starsCount} stars, and ${secondsElapsed} seconds elapsed.`;
+
+				document.querySelector('.finished-result').append(result);
 }
 
 // Shuffle function from http://stackoverflow.com/a/2450976
