@@ -1,6 +1,6 @@
 
 //set card list here 
-const playersList = ["kdb","ronaldo","messi","pogba","hazard","modric","neymar","salah"];
+const playersList = ['kdb','ronaldo','messi','pogba','hazard','modric','neymar','salah'];
 let duplicateList; 
 
 let counter;
@@ -54,10 +54,8 @@ document.querySelector('.deck').addEventListener('click', function(event){
 			incrementCounter();
 			calculateStarRating();
 
-		}	
-		console.log(duplicateList);
+		}
 
-		console.log('length '+duplicateList.length);
 		if (duplicateList.length === 0){
 			gameFinished(counter);
 		}
@@ -71,10 +69,8 @@ document.querySelector('.restart').addEventListener('click', function(event){
 });
 
 
-
 /*
-*startTimer function
-* start the timer at first click
+* @descriptor start the timer at first click
 *  -stop timer if more than 5 minutes passed
 */ 
 function startTimer(){
@@ -90,8 +86,7 @@ function startTimer(){
 }
 
 /*
-* resetTimer function
-*  reset timer and display
+* @descriptor reset timer and display
 */ 
 function resetTimer(){
 	clearInterval(timer);
@@ -99,13 +94,14 @@ function resetTimer(){
 }
 
 /*
-* performDuplicate function
-*  return a list of duplicates for each element
+* @descripto create array with duplicates
+* @param {list} originalList
+* @return {list} list containing duplicate element
 */
 function performDuplicate(originalList){
 	const duplicateList=[];
 
-	for(var i = 0; i< originalList.length;++i){
+	for(let i = 0; i< originalList.length;++i){
 	  duplicateList.push(originalList[i]);
 	  duplicateList.push(originalList[i]);
 	}
@@ -114,9 +110,9 @@ function performDuplicate(originalList){
 
 
 /* 
- * setupGame function
+ * @descriptor setup the game
  * Display the cards on the page
- *   - shuffle the list of cards using the provided "shuffle" method below
+ *   - shuffle the list of cards using the provided 'shuffle' method below
  *   - loop through each card and create its HTML
  *   - add each card's HTML to the page
  */
@@ -139,16 +135,15 @@ function setupGame(){
 	deck.innerHTML = '';
 	openCards = [];
 	listRandom.forEach(function(player){
-		deck.innerHTML += `<li class="card">
-                <i class="tile ${player}"></i>
+		deck.innerHTML += `<li class='card'>
+                <i class='tile ${player}'></i>
            		</li>`;
 	});
 }
 
 /*
-* displayNewGame function
-*	display a new game if true
-*	else display result screen
+* @descriptor display a new game
+* @param {boolean} display new game else result
 */
 function displayNewGame(boolean){
 	if (boolean){
@@ -162,8 +157,8 @@ function displayNewGame(boolean){
 
 
 /*
-* showCard function
-* 	-flip and animate the card on the screen
+* @descriptor flip and animate the card on the screen
+* @param {event target} card
 */
 function showCard(card){
 	card.classList.add('show');
@@ -171,10 +166,8 @@ function showCard(card){
 
 
 /*
-* removeCardFromList function
-* Remove card from list
-	-remove all cardName from the list
-*
+* @descriptor Remove card from list
+* @param {string} cardName
 */ 
 function removeCardFromList(cardName){
 
@@ -184,14 +177,14 @@ function removeCardFromList(cardName){
 }
 
 /*
-* unflipCard function
-* unflip 2 cards when they do not match
-* 	-flip takes 3000ms to take place
+* @descritor unflip 2 cards when they do not match
+* @param {string} firstCard 
+* @param {string} secondCard
 */
 function unflipCard(firstCard, secondCard){
 
-var firstCardNode = document.querySelectorAll('.'+ firstCard), i;
-var secondCardNode = document.querySelectorAll('.'+ secondCard), n;
+let firstCardNode = document.querySelectorAll('.'+ firstCard), i;
+let secondCardNode = document.querySelectorAll('.'+ secondCard), n;
 
 	setTimeout(function(){
 		for (i = 0; i < firstCardNode.length; ++i) {
@@ -211,48 +204,36 @@ var secondCardNode = document.querySelectorAll('.'+ secondCard), n;
 
 
 /*
-* incrementCounter Function
-* 	increment count of click by 1 
+* @descriptor increment count of click by 1 
 */
 function incrementCounter(){
 	counter++;
 	counterDisplay.textContent = counter;
 }
 
-
-
-
 /*
-* resetStars function
-*  reset to 3 stars for new game
+* @descriptor reset to 3 stars for new game
 */
 function resetStars(){
 	const stars = document.querySelector('.stars');
-	stars.innerHTML = '<li><i class="fa fa-star"></i></li><li><i class="fa fa-star"></i></li><li><i class="fa fa-star"></i></li>';
+	stars.innerHTML = "<li><i class='fa fa-star'></i></li><li><i class='fa fa-star'></i></li><li><i class='fa fa-star'></i></li>";
 }
 
-
-
-
 /*
-* calculateStarRating function
-*	determinie and display star rating based on counter 
+* @descritor determinie and display star rating based on counter 
 */
 function calculateStarRating(){
 	const stars = document.querySelector('.stars');
 	if (counter === 11 || counter === 16){
 		stars.removeChild(stars.firstElementChild);
-		stars.insertAdjacentHTML('beforeend','<li><i class="fa fa-star-o"></i></li>');
+		stars.insertAdjacentHTML('beforeend',"<li><i class='fa fa-star-o'></i></li>");
 		starsCount--;
 	}
 }
 
-
-
 /*
-* gameFinished function
-* check if the game is finished 
-* 	-display modal of completion
+* @descritor display game results
+* @param {number} counter
 */
 function gameFinished(counter){
 
@@ -274,7 +255,7 @@ function gameFinished(counter){
 
 // Shuffle function from http://stackoverflow.com/a/2450976
 function shuffle(array) {
-    var currentIndex = array.length, temporaryValue, randomIndex;
+    let currentIndex = array.length, temporaryValue, randomIndex;
 
     while (currentIndex !== 0) {
         randomIndex = Math.floor(Math.random() * currentIndex);
@@ -292,7 +273,7 @@ function shuffle(array) {
 /*
  * set up the event listener for a card. If a card is clicked:
  *  - display the card's symbol (put this functionality in another function that you call from this one)
- *  - add the card to a *list* of "open" cards (put this functionality in another function that you call from this one)
+ *  - add the card to a *list* of 'open' cards (put this functionality in another function that you call from this one)
  *  - if the list already has another card, check to see if the two cards match
  *    + if the cards do match, lock the cards in the open position (put this functionality in another function that you call from this one)
  *    + if the cards do not match, remove the cards from the list and hide the card's symbol (put this functionality in another function that you call from this one)

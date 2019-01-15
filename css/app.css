@@ -150,14 +150,11 @@ h1 {
     background: url('../img/hazard.jpg');
 }
 
-
 .tile {
-/*    width: 100%;*/
     height: 90%;
     background-size: cover;
     background-position: center;
 }
-
 
 @keyframes shake-notmatch {
   0% { transform: translate(8px) rotate(0deg); }
@@ -168,7 +165,6 @@ h1 {
   100% { transform: translate(-8px) rotate(1deg); }
 }
 
-
 @keyframes shake-match {
   0% { transform: translate(0, 8px) rotate(0deg); }
   20% { transform: translate(0, -8px) rotate(-1deg); }
@@ -177,7 +173,6 @@ h1 {
   80% { transform: translate(0, 8px) rotate(1deg); }
   100% { transform: translate(0, -8px) rotate(1deg); }
 }
-
 
 .finished {
     display: none;
@@ -188,11 +183,9 @@ h1 {
     height: 100%;
 }
 
-
 .timer {
     margin-left: 40px;
 }
-
 
 .finished h1 {
     font-weight: bold;
