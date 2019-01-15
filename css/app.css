@@ -73,8 +73,7 @@ h1 {
 
 .show {
     width: 90%;
-    cursor: none;
-  /* When the animation is finished, start again */
+    cursor: default;
 }
 
 .deck .card.match {

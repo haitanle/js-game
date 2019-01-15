@@ -1,7 +1,76 @@
 
-let playersList = ["kdb","ronaldo","messi","pogba","hazard","modric","neymar","salah"];
-
+//set card list here 
+const playersList = ["kdb","ronaldo","messi","pogba","hazard","modric","neymar","salah"];
 let duplicateList; 
+
+let counter;
+let starsCount;
+let secondsElapsed = 0;
+let timer; 
+
+const counterDisplay = document.querySelector('.moves');
+let openCards = [];
+
+setupGame();
+//click to start game
+document.querySelector('.deck').addEventListener('click', function(event){
+
+	if (event.target.classList[0] ==='card'){
+
+		startTimer();
+		
+		console.log('what to show: ' + event.target.children.item(0).classList);
+
+		let cardNode = event.target;
+
+		let childNode = cardNode.children.item(0);
+		let cardName = cardNode.children.item(0).classList[1];
+
+		showCard(childNode);
+
+		//function determine matching
+		if (openCards.length === 0 ){
+			openCards.push(cardNode);
+		} else {
+
+			let cardFromList = openCards.pop();
+			let cardFromListName = cardFromList.children.item(0).classList[1];
+
+			if (cardFromListName === cardName){
+				console.log('Card Matched');
+
+				cardNode.classList.add('match');
+				cardFromList.classList.add('match');
+
+				removeCardFromList(cardName);
+			}else{
+
+				console.log('Card do not matched');
+				cardNode.classList.add('notmatch');
+				cardFromList.classList.add('notmatch');
+
+				unflipCard(cardFromListName, cardName);
+			}
+			incrementCounter();
+			calculateStarRating();
+
+		}	
+		console.log(duplicateList);
+
+		console.log('length '+duplicateList.length);
+		if (duplicateList.length === 0){
+			gameFinished(counter);
+		}
+	}
+
+});
+
+//click to restart game
+document.querySelector('.restart').addEventListener('click', function(event){
+	setupGame();
+});
+
+
 
 /*
 *startTimer function
@@ -33,12 +102,12 @@ function resetTimer(){
 * performDuplicate function
 *  return a list of duplicates for each element
 */
-function performDuplicate(list){
+function performDuplicate(originalList){
 	const duplicateList=[];
 
-	for(var i = 0; i< list.length;++i){
-	  duplicateList.push(list[i]);
-	  duplicateList.push(list[i]);
+	for(var i = 0; i< originalList.length;++i){
+	  duplicateList.push(originalList[i]);
+	  duplicateList.push(originalList[i]);
 	}
 	return duplicateList; 
 }
@@ -53,21 +122,19 @@ function performDuplicate(list){
  */
 function setupGame(){
 
-	document.querySelector('.container').style.display = 'flex';
-	document.querySelector('.finished').style.display = 'none';
-
 	counter = 0;
 	starsCount = 3;
 	secondsElapsed = 0;
 	counterDisplay.textContent = counter;
 
+	displayNewGame(true);
+	resetStars();
+	resetTimer();	
+
 	duplicateList = performDuplicate(playersList);
 
 	const listRandom = shuffle(duplicateList);
 	const deck = document.querySelector('.deck');
-
-	resetStars();
-	resetTimer();	
 
 	deck.innerHTML = '';
 	openCards = [];
@@ -78,7 +145,20 @@ function setupGame(){
 	});
 }
 
-
+/*
+* displayNewGame function
+*	display a new game if true
+*	else display result screen
+*/
+function displayNewGame(boolean){
+	if (boolean){
+		document.querySelector('.container').style.display = 'flex';
+		document.querySelector('.finished').style.display = 'none';
+	}else{
+		document.querySelector('.container').style.display = 'none';
+		document.querySelector('.finished').style.display = 'flex';
+	}
+}
 
 
 /*
@@ -98,9 +178,9 @@ function showCard(card){
 */ 
 function removeCardFromList(cardName){
 
-	for(var i = 0; i < duplicateList.length; i++){
-		if (duplicateList[i] == cardName){ duplicateList.splice(i, 2);}
-	}
+	duplicateList = duplicateList.filter(function(element) {
+    	return element !== cardName;
+	});
 }
 
 /*
@@ -141,82 +221,6 @@ function incrementCounter(){
 
 
 
-let counter;
-let starsCount;
-let secondsElapsed = 0;
-let timer; 
-
-const counterDisplay = document.querySelector('.moves');
-
-let openCards = [];
-
-setupGame();
-
-document.querySelector('.deck').addEventListener('click', function(event){
-
-	if (event.target.classList[0] ==='card'){
-
-		startTimer();
-		
-		console.log('what to show: ' + event.target.children.item(0).classList);
-
-		let cardNode = event.target;
-
-		let childNode = cardNode.children.item(0);
-		let cardName = cardNode.children.item(0).classList[1];
-
-		showCard(childNode);
-
-
-		// cardName = cardNode.classList[1];  //shouldn't use index/not accurate
-
-
-		//function determine matching
-		if (openCards.length === 0 ){
-			openCards.push(cardNode);
-		} else {
-
-			let cardFromList = openCards.pop();
-			let cardFromListName = cardFromList.children.item(0).classList[1];
-
-			if (cardFromListName === cardName){
-				console.log('Card Matched');
-
-				cardNode.classList.add('match');
-				cardFromList.classList.add('match');
-
-				removeCardFromList(cardName);
-			}else{
-
-				console.log('Card do not matched');
-				cardNode.classList.add('notmatch');
-				cardFromList.classList.add('notmatch');
-
-				unflipCard(cardFromListName, cardName);
-
-				//cardNode.classList.remove('notmatch');
-				//cardFromList.classList.remove('notmatch');
-			}
-			incrementCounter();
-			calculateStarRating();
-
-		}	
-		console.log(duplicateList);
-
-		console.log('length '+duplicateList.length);
-		if (duplicateList.length === 0){
-			gameFinished(counter);
-		}
-	}
-
-});
-
-
-document.querySelector('.restart').addEventListener('click', function(event){
-	setupGame();
-});
-
-
 
 /*
 * resetStars function
@@ -255,12 +259,11 @@ function gameFinished(counter){
 				console.log('Game Finished!!');
 				clearInterval(timer);
 
-				document.querySelector('.container').style.display = 'none';
-				document.querySelector('.finished').style.display = 'flex';
+				displayNewGame(false);
 
 				const finishedText = document.querySelector('.finished-result');
 
-				finishedText.innerHTL = '';
+				finishedText.innerHTML = '';
 
 				const result = document.createElement('p');
 
